@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Painel do Usuário</title>
+    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
+</head>
+<body>
+    <h1>Bem-vindo, {{ request.user.username }}!</h1>
+
+    <form method="post" action="{% url 'novo_chamado' %}">
+        {% csrf_token %}
+        <button type="submit">+ Abrir Chamado</button>
+    </form>
+
+    
+
+    <h2>Meus Chamados</h2>
+
+    {% if chamados %}
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Título</th>
+                    <th>Status</th>
+                    <th>Abertura</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for chamado in chamados %}
+                <tr>
+                    <td>{{ chamado.id }}</td>
+                    <td>{{ chamado.titulo }}</td>
+                    <td>{{ chamado.get_status_display }}</td>
+                    <td>{{ chamado.data_abertura|date:"d/m/Y H:i" }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>Você ainda não abriu nenhum chamado.</p>
+    {% endif %}
+    
+    <form method="post" action="{% url 'logout' %}">
+       {% csrf_token %}
+       <button type="submit">Sair</button>
+    </form>
+</body>
+</html>
+
+

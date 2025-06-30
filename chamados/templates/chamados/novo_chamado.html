@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Novo Chamado</title>
+    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
+</head>
+<body>
+    <h1>Novo Chamado</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Enviar Chamado</button>
+    </form>
+
+    <p><a href="{% url 'painel_usuario' %}">← Voltar ao painel</a></p>
+</body>
+</html>
